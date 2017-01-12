@@ -1,0 +1,26 @@
+{
+  "intents": [
+    {
+      "intent": "ReadPrayer"
+    },
+    {
+      "intent": "ReadPassage"
+    },
+    {
+      "intent": "ReadThoughtForTheDay"
+    },
+    {
+      "intent": "ReadSnippet"
+    },
+    {
+      "intent": "ReadMessage"
+    },
+    {
+      "intent": "ReadAuthor"
+    },
+    {
+      "intent": "ReadPrayerFocus"
+    }
+  ]
+}
+

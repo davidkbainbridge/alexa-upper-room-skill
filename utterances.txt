@@ -1,0 +1,19 @@
+ReadPrayer read prayer
+ReadPrayer prayer
+ReadPrayerFocus read prayer focus
+ReadPrayerFocus prayer focus
+ReadPrayerFocus what is the prayer focus
+ReadPassage read passage
+ReadPassage passage
+ReadThoughtForTheDay read thought
+ReadThoughtForTheDay thought
+ReadThoughtForTheDay read thought for the day
+ReadThoughtForTheDay what is the thought for the day
+ReadSnippet read snippet
+ReadSnippet snippet
+ReadMessage read message
+ReadMessage message
+ReadAuthor read author
+ReadAuthor who is the author
+ReadAuthor who wrote this
+ReadAuthor author
