@@ -1,10 +1,7 @@
 """
-This sample demonstrates a simple skill built with the Amazon Alexa Skills Kit.
-The Intent Schema, Custom Slots, and Sample Utterances for this skill, as well
-as testing instructions are located at http://amzn.to/1LzFrj6
-
-For additional samples, visit the Alexa Skills Kit Getting Started guide at
-http://amzn.to/1LGWsLG
+This is a simply skill that reads (text to speech) the daily upper room
+devotional. This skill in unofficial and not authorized by the Upper Room
+organization.
 """
 
 from __future__ import print_function
@@ -12,9 +9,6 @@ import urllib
 import re
 import time
 import BeautifulSoup
-
-
-
 
 # --------------- Helpers that build all of the responses ----------------------
 
@@ -26,18 +20,13 @@ def build_speechlet_response(title, output, reprompt_text, should_end_session):
         },
         "card": {
             "type": "Standard",
-            "title": "Upper Room - " + title,
+            "title": "Unofficial Upper Room - " + title,
             "text": output,
             "image": {
                 "smallImageUrl": "https://s3.amazonaws.com/dbainbri-alexa-card-images/images/ur_small.png",
                 "largeImageUrl": "https://s3.amazonaws.com/dbainbri-alexa-card-images/images/ur_large.png"
             }
         },
-#        'card': {
-#            'type': 'Simple',
-#            'title': "Upper Room - " + title,
-#            'content': output
-#        },
         'reprompt': {
             'outputSpeech': {
                 'type': 'PlainText',
@@ -55,27 +44,35 @@ def build_response(session_attributes, speechlet_response):
         'response': speechlet_response
     }
 
-
 # --------------- Functions that control the skill's behavior ------------------
 def strip_html(d):
-	cleanr = re.compile('<.*?>')
-	cleanr2 = re.compile('&[a-z]*;')
-	cleantext = re.sub(cleanr2, '', re.sub(cleanr, '', d))
+    """ Remove bracketed strings and special characters from the given input.
+    """
+    cleanr = re.compile('<.*?>')
+    cleanr2 = re.compile('&[a-z]*;')
+    cleantext = re.sub(cleanr2, '', re.sub(cleanr, '', d))
 
-	cleanr = re.compile
-	return cleantext
+    cleanr = re.compile
+    return cleantext
 
 def strip_verse_numbers(d):
+    """ Removes verse numbers from a bible passage based on patterns
+    """
     cleanr = re.compile('[0-9]+:[0-9]+[^-]')
     cleantext = re.sub(cleanr, '', d)
     return cleantext
 
 def add_pause(d):
+    """ Insures a space after a period so that the text to speech engine
+    will pause
+    """
     cleanr = re.compile('\.')
     cleantext = re.sub(cleanr, '. ', d)
     return cleantext
 
 def strip_copyright(d):
+    """ Strip the copyright from the passage reading.
+    """
     cleanr = re.compile('The scripture quotation is from.*')
     cleantext = re.sub(cleanr, '. ', d)
     return cleantext
@@ -87,20 +84,23 @@ def get_welcome_response():
 
     session_attributes = {}
     card_title = "Welcome"
-    speech_output = "Welcome to the Alexa Upper Room Skill. " \
+    speech_output = "Welcome to the Unofficial Upper Room Skill. " \
                     "This skill can read the passage, message, thought for the day, " \
                     "prayer focus, prayer, and author for the day's upper " \
-                    "room devotional."
+                    "room devotional. This skill is not sponsored, endorsed, or " \
+                    "authorized by the Upper Room organization. " \
+		    "For example, you can have the Unofficial Upper Room skill read " \
+		    "today's Bible passage by saying, \"Read the passage\"." \
+		    "What would you like the Unofficial Upper Room to read?"
 
-    reprompt_text = ""
-    should_end_session = True
+    reprompt_text = "What would you like the Unofficial Upper Room to read?"
+    should_end_session = False
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
 
-
 def handle_session_end_request():
     card_title = "Session Ended"
-    speech_output = "Thank you for trying the Upper Room Skill. " \
+    speech_output = "Thank you for trying the Unofficial Room Skill. " \
                     "God bless you."
     # Setting this to true ends the session and exits the skill.
     should_end_session = True
