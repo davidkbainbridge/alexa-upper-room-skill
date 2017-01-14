@@ -89,18 +89,35 @@ def get_welcome_response():
                     "prayer focus, prayer, and author for the day's upper " \
                     "room devotional. This skill is not sponsored, endorsed, or " \
                     "authorized by the Upper Room organization. " \
-		    "For example, you can have the Unofficial Upper Room skill read " \
-		    "today's Bible passage by saying, \"Read the passage\"." \
-		    "What would you like the Unofficial Upper Room to read?"
+        	    "For example, you can have the Unofficial Upper Room skill read " \
+        	    "today's Bible passage by saying, \"Read the passage\". " \
+        	    "What would you like the Unofficial Upper Room to read?"
 
     reprompt_text = "What would you like the Unofficial Upper Room to read?"
     should_end_session = False
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
 
+def get_help_response():
+    """ Respond with a help message
+    """
+
+    session_attributes = {}
+    card_title = "Help"
+    speech_output = "This skill can read the passage, message, thought for the day, " \
+                    "prayer focus, prayer, and author for the day's upper " \
+                    "room devotional. For example, you can have the Unofficial Upper Room skill read " \
+                    "today's Bible passage by saying, \"Read the passage\". " \
+                    "What would you like the Unofficial Upper Room to read?"
+
+    reprompt_text = ""
+    should_end_session = False
+    return build_response(session_attributes, build_speechlet_response(
+        card_title, speech_output, reprompt_text, should_end_session))
+
 def handle_session_end_request():
     card_title = "Session Ended"
-    speech_output = "Thank you for trying the Unofficial Room Skill. " \
+    speech_output = "Thank you for trying the Unofficial Upper Room Skill. " \
                     "God bless you."
     # Setting this to true ends the session and exits the skill.
     should_end_session = True
@@ -268,7 +285,7 @@ def on_intent(intent_request, session):
     elif intent_name == "ReadAuthor":
         return get_author(intent)
     elif intent_name == "AMAZON.HelpIntent":
-        return get_welcome_response()
+        return get_help_response()
     elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":
         return handle_session_end_request()
     else:
